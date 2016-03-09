@@ -15,19 +15,19 @@ An element providing a solution to no problem in particular.
 
 Example:
 
-    <seed-element></seed-element>
+    <oyloo-landing-page></oyloo-landing-page>
 
 Example:
 
-    <seed-element>
-      <h2>Hello seed-element</h2>
-    </seed-element>
+    <oyloo-landing-page>
+      <h2>Hello oyloo-landing-page</h2>
+    </oyloo-landing-page>
 
 @demo demo/index.html
 @hero hero.svg
 -->
 
-<dom-module id="seed-element">
+<dom-module id="oyloo-landing-page">
   <template>
     <style>
       :host {
@@ -44,7 +44,7 @@ Example:
       }
     </style>
 
-    <h1>&lt;seed-element&gt;</h1>
+    <h1>&lt;oyloo-landing-page&gt;</h1>
     <content></content>
     <p class="author">
       <img src$="{{author.image}}">
@@ -55,7 +55,7 @@ Example:
 
   <script>
     Polymer({
-      is: 'seed-element',
+      is: 'oyloo-landing-page',
 
       properties: {
         /**
@@ -127,13 +127,13 @@ Example:
        */
       sayHello: function(greeting) {
         var response = greeting || 'Hello World!';
-        return 'seed-element says, ' + response;
+        return 'oyloo-landing-page says, ' + response;
       },
 
       /**
-       * The `seed-element-lasers` event is fired whenever `fireLasers` is called.
+       * The `oyloo-landing-page-lasers` event is fired whenever `fireLasers` is called.
        *
-       * @event seed-element-lasers
+       * @event oyloo-landing-page-lasers
        * @detail {{sound: String}}
        */
 
@@ -144,7 +144,7 @@ Example:
        * do the zapping.
        */
       fireLasers: function() {
-        this.fire('seed-element-lasers', {sound: 'Pew pew!'});
+        this.fire('oyloo-landing-page-lasers', {sound: 'Pew pew!'});
       }
     });
   </script>
