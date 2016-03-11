@@ -1,17 +1,19 @@
 <!--
 @license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+Copyright (c) 2016 oyloo.com. All rights reserved.
 -->
 
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../gold-email-input/gold-email-input.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-form/iron-form.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-pages/iron-pages.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-toolbar/paper-toolbar.html">
 
 <!--
-An element providing a solution to no problem in particular.
+An element providing a landing page.
 
 Example:
 
@@ -19,8 +21,11 @@ Example:
 
 Example:
 
-    <oyloo-landing-page>
-      <h2>Hello oyloo-landing-page</h2>
+    <oyloo-landing-page data-route="home" icon="kitufe"
+      heading="One tap cloud provisioning" text="Register for invite"
+      button="invite me">
+      <paper-icon-button id="paperToggle" icon="oyloo:menu" paper-drawer-toggle>
+      </paper-icon-button>
     </oyloo-landing-page>
 
 @demo demo/index.html
@@ -32,120 +37,129 @@ Example:
     <style>
       :host {
         display: block;
-        box-sizing: border-box;
+        height: 100%;
+        background: var(--background);
+        color: white;
+        --primary-text-color: white;
+        --secondary-text-color: white;
+        --paper-input-container-invalid-color: var(--light-accent-color);
+        --paper-toolbar-background: transparent;
       }
-
-      .author img {
-        display: block;
-        float: left;
-        margin-right: 5px;
-        max-height: 100px;
-        max-width: 100px;
+      
+      iron-pages {
+        @apply(--layout-vertical);
+        @apply(--layout-center-justified);
+        @apply(--layout-center);
+        text-align: center;
+        background: rgba(0, 0, 0, 0.5);
+      }
+      
+      .bottom-margin {
+        margin-bottom: 1vh;
+      }
+      
+      iron-icon {
+        --iron-icon-height: 20vmin;
+        --iron-icon-width: 20vmin;
+      }
+      
+      h1 {
+        color: var(--accent-color);
+        font-size: 5vw;
+      }
+      
+      h2 {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 2vw;
+      }
+      
+      #subscribe {
+        @apply(--layout-horizontal);
+        @apply(--layout-center-justified);
+        @apply(--layout-center);
+        text-align: initial;
+      }
+      
+      paper-button {
+        background: var(--dark-accent-color);
+      }
+      
+      @media (max-width: 480px) {
+        iron-pages {
+          padding: 64px 0px;
+        }
+      }
+      
+      @media (min-width: 481px) {
+        iron-pages {
+          padding: 64px;
+        }
       }
     </style>
 
-    <h1>&lt;oyloo-landing-page&gt;</h1>
-    <content></content>
-    <p class="author">
-      <img src$="{{author.image}}">
-      Cheers,<br/>
-      <span class="name">{{author.name}}</span>
-    </p>
+    <paper-toolbar>
+      <content></content>
+    </paper-toolbar>
+    <iron-pages id="page" selected="0">
+      <form is="iron-form" id="form" action="//oyloo.us12.list-manage.com/subscribe/post?u=c10f42ad62f36f61965798b77&amp;id=d35850a9f8"
+      method="post" name="mc-embedded-subscribe-form" target="_blank" on-iron-form-submit="_confirm">
+        <iron-icon icon="oyloo:[[icon]]"></iron-icon>
+        <h1 class="bottom-margin">[[heading]]</h1>
+        <h2 class="bottom-margin">[[text]]</h2>
+        <div id="subscribe">
+          <gold-email-input required auto-validate error-message="please enter a valid email"
+          label="your email address" value="" name="EMAIL" on-keypress="_keyPressed"></gold-email-input>
+          <div style="position: absolute; left: -5000px;" aria-hidden="true">
+            <input type="text" name="b_c10f42ad62f36f61965798b77_d35850a9f8" tabindex="-1" value="">
+          </div>
+          <paper-button type="submit" name="subscribe" raised on-tap="_submitForm">[[button]]</paper-button>
+        </div>
+      </form>
+      <h2>Check your maibox for confirmation email and click on "Yes, subscribe me to this list.", please.</h2>
+    </iron-pages>
   </template>
 
   <script>
-    Polymer({
-      is: 'oyloo-landing-page',
+    (function() {
+      'use strict';
+      Polymer({
+        is: 'oyloo-landing-page',
 
-      properties: {
-        /**
-         * `fancy` indicates that the element should don a monocle and tophat,
-         * while checking its pocket watch.
-         */
-        fancy: Boolean,
+        properties: {
+        /** Logo. */
+          icon: {
+            type: String,
+            value: "oyloo"
+          },
+          /** Heading. */
+          heading: {
+            type: String,
+            value: "heading"
+          },
+          /** Text below heading. */
+          text: {
+            type: String,
+            value: "text"
+          },
+          /** Text on the submit button. */
+          button: {
+            type: String,
+            value: "subscribe"
+          },
+        },
 
-        /**
-         * Describes the author of the element, but is really just an excuse to
-         * show off JSDoc annotations.
-         *
-         * @type {{name: string, image: string}}
-         */
-        author: {
-          type: Object,
-          // Use `value` to provide a default value for a property, by setting it
-          // on your element's prototype.
-          //
-          // If you provide a function, as we do here, Polymer will call that
-          // _per element instance_.
-          //
-          // We do that to ensure that each element gets its own copy of the
-          // value, rather than having it shared across all instances (via the
-          // prototype).
-          value: function() {
-            return {
-              name:  'Dimitri Glazkov',
-              image: 'http://addyosmani.com/blog/wp-content/uploads/2013/04/unicorn.jpg',
-            };
+        _submitForm: function() {
+          this.$.form.submit();
+        },
+        _keyPressed: function(e) {
+          if (e.keyIdentifier === 'Enter') {
+            this._submitForm(e);
           }
         },
-      },
-
-      // Element Lifecycle
-
-      ready: function() {
-        // `ready` is called after all elements have been configured, but
-        // propagates bottom-up. This element's children are ready, but parents
-        // are not.
-        //
-        // This is the point where you should make modifications to the DOM (when
-        // necessary), or kick off any processes the element wants to perform.
-      },
-
-      attached: function() {
-        // `attached` fires once the element and its parents have been inserted
-        // into a document.
-        //
-        // This is a good place to perform any work related to your element's
-        // visual state or active behavior (measuring sizes, beginning animations,
-        // loading resources, etc).
-      },
-
-      detached: function() {
-        // The analog to `attached`, `detached` fires when the element has been
-        // removed from a document.
-        //
-        // Use this to clean up anything you did in `attached`.
-      },
-
-      // Element Behavior
-
-      /**
-       * Sometimes it's just nice to say hi.
-       *
-       * @param {string} greeting A positive greeting.
-       * @return {string} The full greeting.
-       */
-      sayHello: function(greeting) {
-        var response = greeting || 'Hello World!';
-        return 'oyloo-landing-page says, ' + response;
-      },
-
-      /**
-       * The `oyloo-landing-page-lasers` event is fired whenever `fireLasers` is called.
-       *
-       * @event oyloo-landing-page-lasers
-       * @detail {{sound: String}}
-       */
-
-      /**
-       * Attempt to destroy this element's enemies with a beam of light!
-       *
-       * Or, at least, dispatch an event in the vain hope that someone else will
-       * do the zapping.
-       */
-      fireLasers: function() {
-        this.fire('oyloo-landing-page-lasers', {sound: 'Pew pew!'});
-      }
-    });
+        _confirm: function() {
+          this.$.page.selected = 1;
+        }
+      });
+    })();
   </script>
 </dom-module>
