@@ -7,10 +7,10 @@ Copyright (c) 2016 oyloo.com. All rights reserved.
 <link rel="import" href="../gold-email-input/gold-email-input.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../iron-form/iron-form.html">
-<link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../iron-pages/iron-pages.html">
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../paper-styles/typography.html">
 
 <!--
 An element providing a landing page.
@@ -21,11 +21,10 @@ Example:
 
 Example:
 
-    <oyloo-landing-page data-route="home" icon="kitufe"
-      heading="One tap cloud provisioning" text="Register for invite"
+    <oyloo-landing-page heading="One tap cloud provisioning" text="Register for invite"
       button="invite me">
-      <paper-icon-button id="paperToggle" icon="oyloo:menu" paper-drawer-toggle>
-      </paper-icon-button>
+      <paper-icon-button icon="oyloo:menu" paper-drawer-toggle></paper-icon-button>
+      <iron-icon icon="oyloo:kitufe" logo></iron-icon>
     </oyloo-landing-page>
 
 @demo demo/index.html
@@ -36,6 +35,7 @@ Example:
   <template>
     <style>
       :host {
+        @apply(--paper-font-common-base);
         display: block;
         height: 100%;
         background: var(--background);
@@ -55,22 +55,17 @@ Example:
       }
       
       .bottom-margin {
-        margin-bottom: 1vh;
-      }
-      
-      iron-icon {
-        --iron-icon-height: 20vmin;
-        --iron-icon-width: 20vmin;
+        margin-bottom: 1vmin;
       }
       
       h1 {
         color: var(--accent-color);
-        font-size: 5vw;
+        font-size: 6vmin;
       }
       
       h2 {
         color: rgba(255, 255, 255, 0.5);
-        font-size: 2vw;
+        font-size: 4vmin;
       }
       
       #subscribe {
@@ -98,12 +93,12 @@ Example:
     </style>
 
     <paper-toolbar>
-      <content></content>
+      <content select="[paper-drawer-toggle]"></content>
     </paper-toolbar>
     <iron-pages id="page" selected="0">
       <form is="iron-form" id="form" action="//oyloo.us12.list-manage.com/subscribe/post?u=c10f42ad62f36f61965798b77&amp;id=d35850a9f8"
       method="post" name="mc-embedded-subscribe-form" target="_blank" on-iron-form-submit="_confirm">
-        <iron-icon icon="oyloo:[[icon]]"></iron-icon>
+        <content select="[logo]"></content>
         <h1 class="bottom-margin">[[heading]]</h1>
         <h2 class="bottom-margin">[[text]]</h2>
         <div id="subscribe">
@@ -126,11 +121,6 @@ Example:
         is: 'oyloo-landing-page',
 
         properties: {
-        /** Logo. */
-          icon: {
-            type: String,
-            value: "oyloo"
-          },
           /** Heading. */
           heading: {
             type: String,

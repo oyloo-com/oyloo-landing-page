@@ -10,24 +10,34 @@ Copyright (c) 2016 oyloo.com. All rights reserved.
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <title>oyloo-landing-page demo</title>
   <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
-  <link rel="import" href="../oyloo-landing-page.html">
+  <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
+  <link rel="import" href="../../iron-icon/iron-icon.html">
+  <link rel="import" href="../../oyloo-icons/oyloo-icons.html">
   <link rel="import" href="../../paper-icon-button/paper-icon-button.html">
-  <style is="custom-style">
+  <link rel="import" href="../../paper-styles/color.html">
+  <link rel="import" href="../oyloo-landing-page.html">
+  <style is="custom-style" include="iron-positioning">
     :root {
       --background: url("https://drscdn.500px.org/photo/121710303/m%3D2048/436e2bdd69f9bc9aa1bda0374d887e0b") center/cover no-repeat;
       --accent-color: var(--paper-light-blue-a200);
       --light-accent-color: var(--paper-light-blue-a100);
       --dark-accent-color: var(--paper-light-blue-a400);
     }
+    
+    iron-icon {
+      --iron-icon-height: 15vmin;
+      --iron-icon-width: 15vmin;
+    }
   </style>
 </head>
+</head>
 
-<body unresolved>
+<body class="fullbleed" unresolved>
 
-  <oyloo-landing-page icon="kitufe" heading="One tap cloud provisioning" text="Register for invite"
+  <oyloo-landing-page heading="One tap cloud provisioning" text="Register for invite"
     button="invite me">
-    <paper-icon-button id="paperToggle" icon="oyloo:menu" paper-drawer-toggle>
-    </paper-icon-button>
+    <paper-icon-button icon="oyloo:menu" paper-drawer-toggle></paper-icon-button>
+    <iron-icon icon="oyloo:kitufe" logo></iron-icon>
   </oyloo-landing-page>
 
 </body>
