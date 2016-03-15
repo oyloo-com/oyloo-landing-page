@@ -17,15 +17,15 @@ An element providing a landing page.
 
 Example:
 
-    <oyloo-landing-page></oyloo-landing-page>
+     <oyloo-landing-page></oyloo-landing-page>
 
 Example:
 
-    <oyloo-landing-page heading="One tap cloud provisioning" text="Register for invite"
-      button="invite me">
-      <paper-icon-button icon="oyloo:menu" paper-drawer-toggle></paper-icon-button>
-      <iron-icon icon="oyloo:kitufe" logo></iron-icon>
-    </oyloo-landing-page>
+     <oyloo-landing-page heading="One tap cloud provisioning" text="Register for invite"
+     button="invite me">
+     <paper-icon-button icon="oyloo:menu" paper-drawer-toggle></paper-icon-button>
+     <iron-icon class="logo" icon="oyloo:kitufe"></iron-icon>
+     </oyloo-landing-page>
 
 @demo demo/index.html
 @hero hero.svg
@@ -98,7 +98,7 @@ Example:
     <iron-pages id="page" selected="0">
       <form is="iron-form" id="form" action="//oyloo.us12.list-manage.com/subscribe/post?u=c10f42ad62f36f61965798b77&amp;id=d35850a9f8"
       method="post" name="mc-embedded-subscribe-form" target="_blank" on-iron-form-submit="_confirm">
-        <content select="[logo]"></content>
+        <content select=".logo"></content>
         <h1 class="bottom-margin">[[heading]]</h1>
         <h2 class="bottom-margin">[[text]]</h2>
         <div id="subscribe">
